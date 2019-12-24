@@ -2,6 +2,8 @@ package com.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -10,40 +12,38 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application {
 
-  private final ReactNativeHost mReactNativeHost =
-      new ReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-          return BuildConfig.DEBUG;
-        }
+  private static Application sApplication;
 
-        @Override
-        protected List<ReactPackage> getPackages() {
-          @SuppressWarnings("UnnecessaryLocalVariable")
-          List<ReactPackage> packages = new PackageList(this).getPackages();
-          // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new MyReactNativePackage());
-          return packages;
-        }
+  public static Application getApplication() {
+    return sApplication;
+  }
 
-        @Override
-        protected String getJSMainModuleName() {
-          return "index";
-        }
-      };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+  public static Context getContext() {
+    return getApplication().getApplicationContext();
   }
 
   @Override
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+    // initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+
+    // 初始化 applicationConfigManager
+    ApplicationConfigManager.getInstance().setupContext(this);
+
+    String currentEnvironmentKey = ApplicationConfigManager.getInstance().getCurrentEnvironemntKey();
+    String appId = ApplicationConfigManager.getInstance().getAppID();
+    String appKey = ApplicationConfigManager.getInstance().getAppKey();
+    String baseHostURL = ApplicationConfigManager.getInstance().getServerURL();
+
+    Log.d("@@debug","currentEnvironmentKey: "+currentEnvironmentKey);
+    Log.d("@@debug", "appId: "+appId);
+    Log.d("@@debug", "appKey: "+appKey);
+    Log.d("@@debug", "baseHostURL: "+baseHostURL);
+
+    sApplication = this;
   }
 
   /**

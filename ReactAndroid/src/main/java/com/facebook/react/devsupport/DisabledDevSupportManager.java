@@ -148,4 +148,9 @@ public class DisabledDevSupportManager implements DevSupportManager {
   public void handleException(Exception e) {
     mDefaultNativeModuleCallExceptionHandler.handleException(e);
   }
+
+  @Override
+  public void setDebugServerHost(String host, String port) {
+    // this.mDevSettings.getPackagerConnectionSettings().setDebugServerHost(host, port);
+  }
 }

@@ -1,9 +1,10 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) 2015-present, Facebook, Inc.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.packagerconnection;
 
 import android.content.Context;
@@ -22,6 +23,13 @@ public class PackagerConnectionSettings {
   private final SharedPreferences mPreferences;
   private final String mPackageName;
   private final Context mAppContext;
+
+  private String mDebugServerHost = "localhost";
+  private String mDebugServerPort = "8081";
+  private Boolean mHasBeenInitaledServerConfig = false;
+
+  public static String ServerHostCache = "localhost";
+  public static String ServerPortCache = "8081";
 
   public PackagerConnectionSettings(Context applicationContext) {
     mPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
@@ -42,12 +50,24 @@ public class PackagerConnectionSettings {
 
     if (host.equals(AndroidInfoHelpers.DEVICE_LOCALHOST)) {
       FLog.w(
-          TAG,
-          "You seem to be running on device. Run '"
+        TAG,
+        "You seem to be running on device. Run '"
               + AndroidInfoHelpers.getAdbReverseTcpCommand(mAppContext)
               + "' "
               + "to forward the debug server's port to the device.");
     }
+
+    /*
+    * force override debug host
+    * by @MXCHIP
+    */
+    if (mHasBeenInitaledServerConfig) {
+      host = mDebugServerHost + ":" + mDebugServerPort;
+    } else {
+      host = PackagerConnectionSettings.ServerHostCache + ":" + PackagerConnectionSettings.ServerPortCache;
+    }
+
+    FLog.d("@@getDebugServerHost()", host);
 
     return host;
   }
@@ -62,5 +82,19 @@ public class PackagerConnectionSettings {
 
   public @Nullable String getPackageName() {
     return mPackageName;
+  }
+
+  /**
+   * custom debug host config
+   * by @MXCHIP
+   * @param host
+   * @param port
+   */
+  public void setDebugServerHost(String host, String port) {
+    FLog.d("@DebugInfo", host);
+    FLog.d("@DebugInfo", port);
+    mDebugServerHost = host;
+    mDebugServerPort = port;
+    mHasBeenInitaledServerConfig = true;
   }
 }

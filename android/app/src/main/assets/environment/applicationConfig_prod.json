@@ -1,0 +1,83 @@
+{
+    "id": "286bcf4f-ca58-4c40-8972-20e8499dc99c",
+    "app": {
+        "log": true,
+        "name": {
+            "en": "Sun Raise",
+            "zh": "八九点（生产环境）"
+        },
+        "appId": "mxchip",
+        "pgyer": true,
+        "appKey": {
+            "iOS": "27771801",
+            "Android": "27742804"
+        },
+        "global": false,
+        "layout": {
+            "mainColor": "rgb(0, 197, 249)"
+        },
+        "amapKey": "8abb758c0da75e3a55805cf38bf383b7",
+        "userLog": true,
+        "bundleId": "cn.klite.smart",
+        "environment": "cn-test-iOS",
+        "logoImageURL": "http://asia.download.whi.te.dog/upload/SmartPlus_default_logo.png",
+        "launchImageURL": "http://asia.download.whi.te.dog/upload/LaunchImage_default_launch.png",
+        "securityImagePath": "http://asia.download.whi.te.dog/upload/SmartPlusSecurityImageCN_default_securityImage.zip",
+        "backgroundImageURL": "http://asia.download.whi.te.dog/upload/MainBackground_default_background.png"
+    },
+    "product": [
+        {
+            "key": "CeilingLight",
+            "icon": "",
+            "name": {
+                "en": "Ceiling Light",
+                "zh": "吸顶灯"
+            },
+            "__key": "5744d5d4-0cad-4ded-8e6d-41c526299223",
+            "feature": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "iconURI": "https://panel.app.ha.mxchip.com/test/1f6aa903-a0b1-4ac1-8671-dd58f3330b57.svg",
+            "function": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "platform": {
+                "type": "ilop",
+                "config": {
+                    "productId": "2348758",
+                    "productKey": "a1wtZDVHlxz"
+                }
+            },
+            "createdAt": "2019-09-06T04:55:16.318Z",
+            "switchKey": "LightSwitch",
+            "updatedAt": "2019-09-06T05:02:46.352Z",
+            "description": "",
+            "aws:rep:deleting": false,
+            "aws:rep:updatetime": 1567746166.609001,
+            "aws:rep:updateregion": "ap-northeast-1",
+            "customDeviceDetailPage": true
+        }
+    ],
+    "createdAt": "2019-09-06T04:53:44.477Z",
+    "updatedAt": "2019-09-06T05:42:09.811Z",
+    "accountServer": {
+        "id": "klite_prod_cn",
+        "host": "iot-api.klite-group.com",
+        "port": 443,
+        "type": "default",
+        "protocol": "https",
+        "qrcodePrefix": "http://klite.cn/app/download/"
+    }
+}

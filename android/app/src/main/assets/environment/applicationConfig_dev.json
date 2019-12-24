@@ -1,0 +1,249 @@
+{
+    "id": "97757bf7-19d3-4b52-91fe-1fcce69319f8",
+    "app": {
+        "log": true,
+        "name": {
+            "en": "8 and 9",
+            "zh": "八九点（开发站）"
+        },
+        "appId": "mxchip",
+        "pgyer": true,
+        "appKey": {
+            "iOS": "27555394",
+            "Android": "27569046"
+        },
+        "global": false,
+        "layout": {
+            "mainColor": "rgb(115, 216, 255)"
+        },
+        "amapKey": "8abb758c0da75e3a55805cf38bf383b7",
+        "userLog": true,
+        "bundleId": "cn.klite.smart",
+        "environment": "cn-test-iOS",
+        "logoImageURL": "http://asia.download.whi.te.dog/upload/SmartPlus_default_logo.png",
+        "launchImageURL": "http://asia.download.whi.te.dog/upload/LaunchImage_default_launch.png",
+        "securityImagePath": "http://asia.download.whi.te.dog/upload/SmartPlusSecurityImageCN_default_securityImage.zip",
+        "backgroundImageURL": "http://asia.download.whi.te.dog/upload/MainBackground_default_background.png"
+    },
+    "product": [
+        {
+            "key": "TableLamp",
+            "icon": "",
+            "name": {
+                "en": "Table Lamp",
+                "zh": "台灯（开发）"
+            },
+            "__key": "8f9db9b9-8901-474e-ab5e-0900e614bc4e",
+            "feature": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "iconURI": "https://panel.app.ha.mxchip.com/test/ba5c196b-3406-4366-a240-33e32cb25aaf.svg",
+            "platform": {
+                "type": "ilop",
+                "config": {
+                    "productId": "1917970",
+                    "productKey": "a1cOkFYaLmJ"
+                }
+            },
+            "createdAt": "2019-07-29T07:20:09.274Z",
+            "testPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "publish": true,
+                "version": "0.0.2",
+                "createdAt": "2019-07-30T09:05:56.337Z",
+                "updatedAt": "2019-07-30T09:05:59.254Z",
+                "description": "打包测试",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/861e0474-2ef8-4986-a4d5-f8ed2246d0e0.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/5a4fe229-176a-4a8b-a079-25832007d625.zip"
+                }
+            },
+            "updatedAt": "2019-07-30T09:07:12.068Z",
+            "description": "",
+            "publishPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "version": "0.0.2",
+                "createdAt": "2019-07-30T09:05:56.337Z",
+                "description": "打包测试",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/861e0474-2ef8-4986-a4d5-f8ed2246d0e0.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/5a4fe229-176a-4a8b-a079-25832007d625.zip"
+                }
+            },
+            "aws:rep:deleting": false,
+            "aws:rep:updatetime": 1564477632.478001,
+            "aws:rep:updateregion": "ap-northeast-1"
+        },
+        {
+            "app": {
+                "global": true
+            },
+            "key": "CeilingLight",
+            "icon": "",
+            "name": {
+                "en": "Ceiling Light",
+                "zh": "吸顶灯（开发）"
+            },
+            "__key": "5992c860-9684-4b55-a532-572b3fb96f68",
+            "feature": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "iconURI": "https://panel.app.ha.mxchip.com/test/c59f5e4b-008d-425e-a019-9c8815ad38d9.svg",
+            "function": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "platform": {
+                "type": "ilop",
+                "config": {
+                    "productId": "1915443",
+                    "productKey": "a16US9XcSLU"
+                }
+            },
+            "createdAt": "2019-07-29T06:49:02.072Z",
+            "testPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "version": "0.0.1",
+                "createdAt": "2019-07-29T07:28:30.291Z",
+                "description": "开发版本",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/b283a372-73ff-451e-9f41-b76441bee284.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/6cd0f4f2-6888-4532-98ea-34dc3406ecac.zip"
+                }
+            },
+            "updatedAt": "2019-07-31T10:16:38.339Z",
+            "description": "",
+            "publishPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "version": "0.0.22",
+                "createdAt": "2019-07-31T10:16:36.377Z",
+                "description": "测试版本 beta 21",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/58590510-0ba1-414b-9d43-b72c5de0668f.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/5575f4e2-1837-44f1-8b60-45ebe1f4b15b.zip"
+                }
+            },
+            "aws:rep:deleting": false,
+            "aws:rep:updatetime": 1564568199.270002,
+            "aws:rep:updateregion": "ap-northeast-1"
+        },
+        {
+            "key": "BedLamp",
+            "icon": "",
+            "name": {
+                "en": "Bed Lamp",
+                "zh": "床头灯（开发）"
+            },
+            "__key": "b944ba98-1c7c-4867-b020-750d87176657",
+            "feature": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "iconURI": "https://panel.app.ha.mxchip.com/test/9e6da518-66ff-44f6-b085-d91e34a7def5.svg",
+            "platform": {
+                "type": "ilop",
+                "config": {
+                    "productId": "2149226",
+                    "productKey": "a1q2I48BsPl"
+                }
+            },
+            "createdAt": "2019-07-29T07:20:20.532Z",
+            "testPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "publish": true,
+                "version": "0.0.1",
+                "createdAt": "2019-07-29T07:32:39.779Z",
+                "updatedAt": "2019-07-29T07:32:44.103Z",
+                "description": "开发版本",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/ad6b7f58-6bf5-4dd0-8559-3ebcd93d1d68.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/594dce0b-2065-4544-9d66-fb409c40e793.zip"
+                }
+            },
+            "updatedAt": "2019-07-30T05:50:44.903Z",
+            "description": "",
+            "publishPanel": {
+                "userId": "1554095785640-4c016990-543d-11e9-a3fa-cbf59ac9375b",
+                "version": "0.0.1",
+                "createdAt": "2019-07-29T07:32:39.779Z",
+                "description": "开发版本",
+                "downloadURL": {
+                    "iOS": "https://panel.app.ha.mxchip.com/test/ad6b7f58-6bf5-4dd0-8559-3ebcd93d1d68.zip",
+                    "Android": "https://panel.app.ha.mxchip.com/test/594dce0b-2065-4544-9d66-fb409c40e793.zip"
+                }
+            },
+            "aws:rep:deleting": false,
+            "aws:rep:updatetime": 1564465845.470001,
+            "aws:rep:updateregion": "ap-northeast-1"
+        },
+        {
+            "key": "TestModel",
+            "icon": "",
+            "name": {
+                "en": "Test Model",
+                "zh": "测试型号"
+            },
+            "__key": "b8e62ad8-ddb4-4df5-b994-1917afdc06e5",
+            "feature": {
+                "name": true,
+                "model": true,
+                "share": true,
+                "users": true,
+                "deviceId": true,
+                "firmware": true,
+                "panelVersion": true
+            },
+            "iconURI": "https://panel.app.ha.mxchip.com/test/fa533d3a-9b3e-457b-b568-0dcf35d8f8f7.svg",
+            "function": {
+                "name": true,
+                "share": true,
+                "firmware": true
+            },
+            "platform": {
+                "type": "ilop",
+                "config": {
+                    "productId": "",
+                    "productKey": ""
+                }
+            },
+            "createdAt": "2019-07-29T07:21:21.315Z",
+            "updatedAt": "2019-07-30T12:59:30.654Z",
+            "description": "",
+            "aws:rep:deleting": false,
+            "aws:rep:updatetime": 1564491571.276001,
+            "aws:rep:updateregion": "ap-northeast-1"
+        }
+    ],
+    "createdAt": "2019-07-29T06:46:33.014Z",
+    "updatedAt": "2019-08-19T02:21:43.358Z",
+    "accountServer": {
+        "id": "klite_dev_cn",
+        "host": "47.103.86.196",
+        "port": "80",
+        "type": "default",
+        "protocol": "http",
+        "qrcodePrefix": "http://klite.cn/app/download/"
+    }
+}

@@ -2903,6 +2903,16 @@ hermes-engine@^0.2.1:
   resolved "https://registry.npm.taobao.org/hermes-engine/download/hermes-engine-0.2.1.tgz#25c0f1ff852512a92cb5c5cc47cf967e1e722ea2"
   integrity sha1-JcDx/4UlEqkstcXMR8+Wfh5yLqI=
 
+hermes-engine@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/hermes-engine/download/hermes-engine-0.3.0.tgz#c03ded211102eef775045a5f55e286783db8ad48"
+  integrity sha1-wD3tIREC7vd1BFpfVeKGeD24rUg=
+
+hermesvm@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npm.taobao.org/hermesvm/download/hermesvm-0.1.1.tgz#bd1df92b4dc504e261c23df34864daf24b844d03"
+  integrity sha1-vR35K03FBOJhwj3zSGTa8kuETQM=
+
 hosted-git-info@^2.1.4:
   version "2.8.5"
   resolved "https://registry.npm.taobao.org/hosted-git-info/download/hosted-git-info-2.8.5.tgz?cache=0&sync_timestamp=1570493570687&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fhosted-git-info%2Fdownload%2Fhosted-git-info-2.8.5.tgz#759cfcf2c4d156ade59b0b2dfabddc42a6b9c70c"
@@ -5064,10 +5074,9 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.12.0.tgz?cache=0&sync_timestamp=1576681363662&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha1-LMD+D7p0LZf9UnxCoTvsTusGJBw=
 
-react-native@0.61.5:
+"react-native@github:facebook/react-native#0.61-stable":
   version "0.61.5"
-  resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.61.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native%2Fdownload%2Freact-native-0.61.5.tgz#6e21acb56cbd75a3baeb1f70201a66f42600bba8"
-  integrity sha1-biGstWy9daO66x9wIBpm9CYAu6g=
+  resolved "https://codeload.github.com/facebook/react-native/tar.gz/86cad7d69099baaaeae10ac7c0912a023101f257"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^3.0.0"

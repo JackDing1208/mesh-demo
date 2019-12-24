@@ -10,8 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "hermes-engine": "^0.3.0",
+    "hermesvm": "^0.1.1",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "github:facebook/react-native#0.61-stable"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

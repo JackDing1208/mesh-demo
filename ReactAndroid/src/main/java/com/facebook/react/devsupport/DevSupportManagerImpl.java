@@ -1257,4 +1257,9 @@ public class DevSupportManagerImpl
   private static String getReloadAppAction(Context context) {
     return context.getPackageName() + RELOAD_APP_ACTION_SUFFIX;
   }
+
+  @Override
+  public void setDebugServerHost(String host, String port) {
+    this.mDevSettings.getPackagerConnectionSettings().setDebugServerHost(host, port);
+  }
 }

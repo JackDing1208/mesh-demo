@@ -385,8 +385,9 @@ public class ReactInstanceManager {
                         public void run() {
                           if (packagerIsRunning) {
                             mDevSupportManager.handleReloadJS();
-                          } else if (mDevSupportManager.hasUpToDateJSBundleInCache()
-                              && !devSettings.isRemoteJSDebugEnabled()) {
+                          //} else if (mDevSupportManager.hasUpToDateJSBundleInCache()
+                          //    && !devSettings.isRemoteJSDebugEnabled()) {
+                          } else if (false) {
                             // If there is a up-to-date bundle downloaded from server,
                             // with remote JS debugging disabled, always use that.
                             onJSBundleLoadedFromServer(null);

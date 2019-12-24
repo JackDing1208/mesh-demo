@@ -84,4 +84,10 @@ public interface DevSupportManager extends NativeModuleCallExceptionHandler {
   StackFrame[] getLastErrorStack();
 
   void registerErrorCustomizer(ErrorCustomizer errorCustomizer);
+
+  /**
+   * custom extension
+   * for multiple react native projects
+   */
+  void setDebugServerHost(String host, String port);
 }
