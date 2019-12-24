@@ -15,6 +15,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
+  NativeModules
 } from 'react-native';
 
 import {
@@ -29,13 +30,16 @@ import ApplicationManager from "./app/applicationManager";
 const applicationManager = new ApplicationManager()
 global.applicationManager = applicationManager
 
+const BLEMeshModule = NativeModules.BLEMeshModule
+global.BLEMeshModule = NativeModules.BLEMeshModule
+
 const LoadPageButton = () => {
 
   const loadNewPage = () => {
     let config = {
       online: true,
       host: "localhost",
-      port: "8081",
+      port: "8088",
       applicationName: "application",
       moduleName: "application", // todo: 修改为 main，需修改对应的面板包
       config: {
@@ -66,7 +70,44 @@ const LoadPageButton = () => {
   )
 }
 
-const App: () => React$Node = () => {
+const Button = (props) => {
+
+  const onPress = props.onPress
+  const title = props.title || "Default Title"
+
+  const style = {
+    container: {
+      padding: 20,
+      backgroundColor: "#ff6600",
+    },
+    title: {
+      color: "#ffffff",
+    },
+  }
+
+  return (
+    <TouchableOpacity style={style.container} onPress={onPress}>
+      <Text style={style.title}>{title}</Text>
+    </TouchableOpacity>
+  )
+}
+
+const App: () => React$Node = (props) => {
+
+  console.log(props)
+
+  const Buttons = [
+    <LoadPageButton key="load_button" />,
+    <Button key="a" title="BLEMeshModule.a()" onPress={()=>{
+      // alert("a()")
+      BLEMeshModule.a()
+    }} />,
+    <Button key="test" title="BLEMeshModule.test()" onPress={() => {
+      BLEMeshModule.test({ content: "Hello, world!" }, function (res) {
+        console.log("@res", res)
+      })
+    }} />,
+  ]
 
   return (
     <>
@@ -76,7 +117,7 @@ const App: () => React$Node = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <Header />
-          <LoadPageButton/>
+          {Buttons}
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>

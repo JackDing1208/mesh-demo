@@ -22,6 +22,8 @@ public class CustomReactPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
 
         modules.add(new ApplicationModule(reactContext));
+        modules.add(new BLEMeshModule(reactContext));
+
         return modules;
     }
 

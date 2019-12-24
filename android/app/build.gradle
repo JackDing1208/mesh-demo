@@ -177,19 +177,23 @@ android {
         }
     }
 }
-/*
+
 repositories {
     flatDir {
         dir "../libs/aar"
     }
 }
-//*/
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':ReactAndroid')
     // implementation(name: 'ReactAndroid-release', ext: 'aar')
     implementation 'com.google.code.gson:gson:2.8.6'
+    // mesh
+    // implementation(name: 'meshsdk-0.0.8', ext: 'aar')
+    // implementation(name: 'meshprovisioner-0.0.3', ext: 'aar')
+    implementation project(':QKMeshDemo:meshsdk')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
