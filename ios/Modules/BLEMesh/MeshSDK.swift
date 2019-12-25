@@ -11,6 +11,12 @@ import os.log
 import nRFMeshProvision
 import CoreBluetooth
 
+enum DeviceConfigurationPhase {
+    case provisoning
+    case identifying
+    case none
+}
+
 @objc class MeshSDK: NSObject {
     static let sharedInstance = MeshSDK()
     
@@ -20,9 +26,34 @@ import CoreBluetooth
     var currentNetworkKey: String!
     var currentApplicationKey: String!
     
-    typealias CheckPermissionCallback = (String) -> ()
+    var phase: DeviceConfigurationPhase!
+    
+    var discoveredPeripherals = [(device: UnprovisionedDevice, peripheral: CBPeripheral, rssi: Int)]()
+    var disposedDiscoveredDevices = [(identifier: String, rssi: Int, name: String)]()
+    var provisioningManager: ProvisioningManager!
+    var capabilitiesReceived = false
+    var unprovisionedDevice: UnprovisionedDevice!
+    var bearer: ProvisioningBearer!
+    var currentNode: Node!
+    
+    private var provisioningNetworkKey: String!
+    private var publicKey: PublicKey?
+    private var authenticationMethod: AuthenticationMethod?
+    
+    typealias CheckPermissionCallback = (String, Bool) -> ()
+    typealias ScanResultCallback = ([(device: UnprovisionedDevice, peripheral: CBPeripheral, rssi: Int)]) -> ()
+    
+    typealias DisposedScanResultCallback = ([(identifier: String, rssi: Int, name: String)]) -> ()
+    typealias LocalProvisionedResultCallback = ([Node]) -> () // 暂定
+    typealias GenericOnOffStatusCallback = (Bool) -> ()
+    
+    
     var checkPermissionCallBack: CheckPermissionCallback!
-  
+    var scanResultCallback: ScanResultCallback!
+    var disposedScanResultCallback: DisposedScanResultCallback!
+    var localProvisionedResultCallback: LocalProvisionedResultCallback!
+    var genericOnOffStatusCallback: GenericOnOffStatusCallback!
+    
     @objc class func getSharedInstance() -> MeshSDK {
       return self.sharedInstance
     }
@@ -116,7 +147,7 @@ extension MeshSDK {
 
         _ = try! network.add(networkKey: data, name: "NetworkKey \(index)")
         if meshNetworkManager.save() {
-            
+            print("添加 key 成功")
         } else {
             
         }
@@ -158,8 +189,9 @@ extension MeshSDK {
 extension MeshSDK {
     @objc public func setCurrentApplicationKey(key: String, networkKey: String) {
         for nk in meshNetworkManager.meshNetwork!.networkKeys {
-            if nk.key.hex == key {
-                
+            if nk.key.hex == networkKey {
+                UserDefaults.standard.set(key, forKey: "mesh_currentAppKey")
+                UserDefaults.standard.synchronize()
             }
         }
     }
@@ -181,6 +213,11 @@ extension MeshSDK {
                 boundToNetworkKey = nw
                 try? applicationKey.bind(to: boundToNetworkKey)
             }
+        }
+        if meshNetworkManager.save() {
+            print("这回总该有 application key 了吧")
+        } else {
+            
         }
     }
     
@@ -220,37 +257,331 @@ extension MeshSDK {
     }
 }
 
+// MARK: - Load Local Provisioned Node
+extension MeshSDK {
+    public func getProvisionedNodes(callback: @escaping LocalProvisionedResultCallback) {
+        self.localProvisionedResultCallback = callback
+        let network = meshNetworkManager.meshNetwork!
+        let unConfiguredNodes = network.nodes.filter({ !$0.isConfigComplete && !$0.isProvisioner })
+        self.localProvisionedResultCallback(unConfiguredNodes)
+    }
+    
+    public func getCompositionData(node: Node) {
+        let message = ConfigCompositionDataGet()
+        meshNetworkManager.delegate = self
+        currentNode = node
+        _ = try? meshNetworkManager.send(message, to: currentNode)
+        
+    }
+    
+    public func getTtl(node: Node) {
+        let message = ConfigDefaultTtlGet()
+        
+        _ = try? meshNetworkManager.send(message, to: node)
+    }
+}
+
+// MARK: - 对设备发送控制指令
+extension MeshSDK {    
+    @objc public func setGenericOnOff(uuid: String, isOn: Bool, callback: @escaping GenericOnOffStatusCallback) {
+        meshNetworkManager.delegate = self
+        genericOnOffStatusCallback = callback
+        let message = GenericOnOffSet(isOn)
+        let network = meshNetworkManager.meshNetwork!
+        guard let node = network.nodes.first(where: { $0.uuid.uuidString == uuid } ) else {
+            return
+        }
+        currentNode = node
+        let model: Model = node.elements[0].models.first(where: { $0.name == "Generic OnOff Server"} )!
+        _ = try? meshNetworkManager.send(message, to: model)
+    }
+}
+
+// MARK: - 添加 ApplicaitonKey
+extension MeshSDK {
+    public func bindApplicationKeyForNode(appKey: String, node: Node) {
+        let network = meshNetworkManager.meshNetwork!
+        meshNetworkManager.delegate = self
+        if let applicationKey: ApplicationKey = network.applicationKeys.first(where: { $0.key.hex == appKey }) {
+            _ = try? meshNetworkManager.send(ConfigAppKeyAdd(applicationKey: applicationKey), to: node)
+        }
+    }
+    
+    public func bindApplicationKeyForBaseModel(appKey: String, node: Node) {
+        let network = meshNetworkManager.meshNetwork!
+        let element = node.elements.first
+        let models = element?.models
+        let model = models![2]
+        meshNetworkManager.delegate = self
+        if let applicationKey: ApplicationKey = network.applicationKeys.first(where: { $0.key.hex == appKey }) {
+            let message = ConfigModelAppBind(applicationKey: applicationKey, to: model)!
+            _ = try? meshNetworkManager.send(message, to: model)
+        }
+        
+       
+    }
+}
+
+extension MeshSDK: MeshNetworkDelegate {
+    func meshNetworkManager(_ manager: MeshNetworkManager,
+                            didReceiveMessage message: MeshMessage,
+                            sentFrom source: Address, to destination: Address) {
+        guard currentNode.unicastAddress == source else {
+            return
+        }
+        
+        switch message {
+        case is GenericOnOffStatus:
+            if let callback = genericOnOffStatusCallback {
+                callback(true)
+                genericOnOffStatusCallback = nil
+            }
+        case is ConfigCompositionDataStatus:
+            print("配置组成数据状态")
+            self.getTtl(node: currentNode)
+        case is ConfigDefaultTtlStatus:
+            print("配置默认TTL状态")
+        case is ConfigNodeResetStatus:
+            print("配置重置节点状态")
+        case is ConfigAppKeyStatus:
+            print("配置 ApplicationKey 状态")
+        case is ConfigModelAppStatus:
+            print("Model 配置 ApplicationKey 的状态")
+        default:
+            print("我也不知道这是什么")
+            break
+        }
+    }
+    
+    func meshNetworkManager(_ manager: MeshNetworkManager, didSendMessage message: MeshMessage, from localElement: Element, to destination: Address) {
+        
+    }
+}
+
+// MARK: - Provision
+extension MeshSDK: ProvisioningDelegate {
+    public func provision(identifier: String) {
+        let indexOfDevice = self.disposedDiscoveredDevices.firstIndex { $0.identifier == identifier }!
+        unprovisionedDevice = discoveredPeripherals[indexOfDevice].device
+        bearer = PBGattBearer(target: discoveredPeripherals[indexOfDevice].peripheral)
+        
+        bearer.delegate = self
+        bearer.open()
+        phase = .identifying
+
+    }
+    
+    public func provision(identifier: String, networkKey: String) {
+        let indexOfDevice = self.disposedDiscoveredDevices.firstIndex { $0.identifier == identifier }!
+        unprovisionedDevice = discoveredPeripherals[indexOfDevice].device
+        bearer = PBGattBearer(target: discoveredPeripherals[indexOfDevice].peripheral)
+        
+        bearer.delegate = self
+        bearer.open()
+        phase = .identifying
+        provisioningNetworkKey = networkKey
+    }
+    
+    private func setupProvisionManager(unprovisionDevice: UnprovisionedDevice, bearer: ProvisioningBearer) {
+        let network = meshNetworkManager.meshNetwork!
+        self.bearer = bearer
+        self.bearer.delegate = self
+        provisioningManager = network.provision(unprovisionedDevice: unprovisionDevice, over: self.bearer)
+        provisioningManager.delegate = self
+        
+        do {
+            try self.provisioningManager.identify(andAttractFor: 5)
+        } catch {
+            self.abort(bearer: bearer)
+        }
+    }
+    
+    func abort(bearer: ProvisioningBearer) {
+        bearer.close()
+    }
+    
+    public func authenticationActionRequired(_ action: AuthAction) {
+        
+    }
+    
+    public func inputComplete() {
+        print("inputComplete\nProvisioning...")
+    }
+    
+    public func provisioningState(of unprovisionedDevice: UnprovisionedDevice, didChangeTo state: ProvisionigState) {
+        switch state {
+        case .requestingCapabilities:
+            print("Identifying...")
+        case .capabilitiesReceived(let capabilities):
+            print("ElementCount \(capabilities.numberOfElements)")
+            print("SupportedAlgorithms \(capabilities.algorithms)")
+            print("PublicKeyType \(capabilities.publicKeyType)")
+            print("StaticOobType \(capabilities.staticOobType)")
+            print("ouputOobSize \(capabilities.outputOobSize)")
+            print("outputOobActions \(capabilities.outputOobActions)")
+            print("inputOobSize \(capabilities.inputOobSize)")
+            print("inputOobActions \(capabilities.inputOobActions)")
+            
+            let addressValid = self.provisioningManager.isUnicastAddressValid == true
+            if !addressValid {
+                self.provisioningManager.unicastAddress = nil
+            }
+            print(self.provisioningManager.unicastAddress?.asString() ?? "No address available")
+            
+            let capabilitiesWereAlreadyReceived = self.capabilitiesReceived
+            self.capabilitiesReceived = true
+            
+            let deviceSupported = self.provisioningManager.isDeviceSupported == true
+            if deviceSupported && addressValid {
+                if capabilitiesWereAlreadyReceived {
+                    print("You are able to start provision.")
+                }
+            } else {
+                if !deviceSupported {
+                    print("Selected device is not supported.")
+                } else {
+                    print("No available Unicast Address in Provisioner's range.")
+                }
+            }
+            
+            startProvisioning(networkKey: self.provisioningNetworkKey)
+        case .complete:
+            print("complete")
+            self.bearer.close()
+        case let .fail(error):
+            print(error)
+        default:
+            break
+        }
+    }
+    
+    func startProvisioning(networkKey: String) {
+        guard let capabilities = provisioningManager.provisioningCapabilities else {
+            // TODO: 给出一个失败的回调
+            return
+        }
+        
+        let publicKeyNotAvailble = capabilities.publicKeyType.isEmpty
+        guard publicKeyNotAvailble || publicKey != nil else {
+            // TODO: 给出一个失败的回调
+            return
+        }
+        
+        publicKey = publicKey ?? .noOobPublicKey
+        
+        let staticOobNotSupported = capabilities.staticOobType.isEmpty
+        let outputOobNotSupported = capabilities.outputOobActions.isEmpty
+        let inputOobNotSupported  = capabilities.inputOobActions.isEmpty
+        
+        guard (staticOobNotSupported && outputOobNotSupported && inputOobNotSupported) || authenticationMethod != nil else {
+            // TODO: 给出一个失败的回调
+            return
+        }
+        
+        if authenticationMethod == nil {
+            authenticationMethod = .noOob
+        }
+        
+        if let provisioningNetworkKey: NetworkKey = meshNetworkManager.meshNetwork!.networkKeys.first(where: { $0.key.hex == networkKey }) {
+            self.provisioningManager.networkKey = provisioningNetworkKey
+            do {
+                try self.provisioningManager.provision(usingAlgorithm: .fipsP256EllipticCurve,
+                                                       publicKey: self.publicKey!,
+                                                       authenticationMethod: self.authenticationMethod!)
+            } catch {
+                self.abort(bearer: self.bearer)
+            }
+
+        }
+    }
+}
+
+extension MeshNetwork {
+    
+    func provision(unprovisionedDevice: UnprovisionedDevice, over bearer: ProvisioningBearer) -> ProvisioningManager {
+        return ProvisioningManager(for: unprovisionedDevice, over: bearer, in: self)
+    }
+}
+
+extension MeshSDK: GattBearerDelegate {
+    func bearer(_ bearer: Bearer, didClose error: Error?) {
+        if case .complete = provisioningManager.state {
+            if meshNetworkManager.save() {
+                print("设备真正的添加完成")
+            } else {
+                
+            }
+        }
+    }
+    
+    func bearerDidOpen(_ bearer: Bearer) {
+        self.bearer = bearer as? ProvisioningBearer
+        setupProvisionManager(unprovisionDevice: unprovisionedDevice, bearer: self.bearer)
+    }
+    
+    func bearerDidDiscoverServices(_ bearer: Bearer) {
+        print("Initializing...")
+    }
+    
+    func bearerDidConnect(_ bearer: Bearer) {
+        print("Discovering services...")
+    }
+}
+
 extension MeshSDK: CBCentralManagerDelegate {
     
     @objc public func checkPermission(callback : @escaping CheckPermissionCallback) {
-        callback(centralManager.state == CBManagerState.poweredOn ? "GRANTED" : "DENIED")
-        // checkPermissionCallBack = callback
-        // centralManager.delegate = self
+        checkPermissionCallBack = callback
+        centralManager.delegate = self
+        if centralManager.state == .poweredOn {
+            callback("GRANTED", true)
+        } else {
+            callback("DENIED", false)
+        }
     }
     
-    @objc public func startScanning() {
-        print("Start Scanning")
+    public func startScan(type: String, callback: @escaping ScanResultCallback, disposedCallback: @escaping DisposedScanResultCallback) {
+        
+        centralManager.delegate = self
+        scanResultCallback = callback
+        disposedScanResultCallback = disposedCallback
+        centralManager.scanForPeripherals(withServices: [MeshProvisioningService.uuid], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        
     }
     
-    @objc public func stopScanning() {
-        print("Stop Scanning")
+    public func stopScan() {
+        centralManager.stopScan()
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
+        if !discoveredPeripherals.contains(where: { $0.peripheral == peripheral }) {
+            if let unprovisionedDevice = UnprovisionedDevice(advertisementData: advertisementData) {
+                discoveredPeripherals.append((unprovisionedDevice, peripheral, RSSI.intValue))
+                scanResultCallback(discoveredPeripherals)
+                //
+                disposedDiscoveredDevices.append((unprovisionedDevice.uuid.uuidString, RSSI.intValue, peripheral.name ?? "Unknown Device"))
+                disposedScanResultCallback(disposedDiscoveredDevices)
+            } else {
+                if let index = discoveredPeripherals.firstIndex(where: { $0.peripheral == peripheral }) {
+                    print(index)
+                }
+            }
+        }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state != .poweredOn {
             if let _ = checkPermissionCallBack {
-                checkPermissionCallBack("DENIED")
+                checkPermissionCallBack("DENIED", false)
             }
         } else {
             if let _ = checkPermissionCallBack {
-                checkPermissionCallBack("GRANTED")
+                checkPermissionCallBack("GRANTED", true)
             }
-
-            startScanning()
+            
+//            if central.state == .poweredOn {
+//                startScan(type: "")
+//            }
         }
     }
 }

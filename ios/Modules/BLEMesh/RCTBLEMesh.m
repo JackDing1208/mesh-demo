@@ -45,7 +45,7 @@ RCT_EXPORT_METHOD(getAllNetworkKeys)
 // MARK: checkPermission(callback)
 RCT_EXPORT_METHOD(checkPermission:(RCTResponseSenderBlock)callback)
 {
-  [[MeshSDK getSharedInstance] checkPermissionWithCallback:^(NSString * permission) {
+  [[MeshSDK getSharedInstance] checkPermissionWithCallback:^(NSString * permission, BOOL success) {
     callback(@[permission]);
   }];
 }
