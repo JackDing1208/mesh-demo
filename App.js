@@ -15,7 +15,8 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  NativeModules
+  NativeModules,
+  SectionList,
 } from 'react-native';
 
 import {
@@ -33,43 +34,6 @@ global.applicationManager = applicationManager
 const BLEMeshModule = NativeModules.BLEMeshModule
 global.BLEMeshModule = NativeModules.BLEMeshModule
 
-const LoadPageButton = () => {
-
-  const loadNewPage = () => {
-    let config = {
-      online: true,
-      host: "localhost",
-      port: "8088",
-      applicationName: "application",
-      moduleName: "application", // todo: 修改为 main，需修改对应的面板包
-      config: {
-        type: "progress",
-        iotId: "",
-        model: "",
-      },
-      package: {}
-    }
-
-    applicationManager.loadPageWithOptions(config)
-  }
-
-  const style = {
-    container: {
-      padding: 20,
-      backgroundColor: "#ff6600",
-    },
-    title: {
-      color: "#ffffff",
-    },
-  }
-
-  return (
-    <TouchableOpacity style={style.container} onPress={loadNewPage}>
-      <Text style={style.title}>LoadNewPage</Text>
-    </TouchableOpacity>
-  )
-}
-
 const Button = (props) => {
 
   const onPress = props.onPress
@@ -78,10 +42,12 @@ const Button = (props) => {
   const style = {
     container: {
       padding: 20,
-      backgroundColor: "#ff6600",
+      backgroundColor: "#ffffff",
+      borderBottomWidth: 1,
+      borderBottomColor: "rgba(0,0,0,0.1)",
     },
     title: {
-      color: "#ffffff",
+      color: "#000000",
     },
   }
 
@@ -96,64 +62,71 @@ const App: () => React$Node = (props) => {
 
   console.log(props)
 
-  const Buttons = [
-    <LoadPageButton key="load_button" />,
-    <Button key="a" title="BLEMeshModule.a()" onPress={()=>{
-      // alert("a()")
-      BLEMeshModule.a()
-    }} />,
-    <Button key="test" title="BLEMeshModule.test()" onPress={() => {
-      BLEMeshModule.test({ content: "Hello, world!" }, function (res) {
-        console.log("@res", res)
-      })
-    }} />,
-  ]
+  const list = (
+    <SectionList
+      style={{ flexGrow: 1, height: "100%" }}
+      contentContainerStyle={{ flexGrow: 1 }}
+      renderItem={({ item, index, section }) => (
+        <Button key={`${section}_${index}`} title={item.title} onPress={item.onPress} />
+      )}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text style={{ fontWeight: "bold", padding: 20, backgroundColor: "#f4f4f4" }}>{title}</Text>
+      )}
+      sections={[
+        {
+          title: "面板分离", 
+          data: [
+            {
+              title: "加载新面板",
+              onPress: () => {
+                let config = {
+                  online: true,
+                  host: "localhost",
+                  port: "8088",
+                  applicationName: "application",
+                  moduleName: "application", // todo: 修改为 main，需修改对应的面板包
+                  config: {
+                    type: "progress",
+                    iotId: "",
+                    model: "",
+                  },
+                  package: {}
+                }
+            
+                applicationManager.loadPageWithOptions(config)
+              }
+            },
+            {
+              title: "返回上一个面板",
+              onPress: ()=>{
+                applicationManager.back && applicationManager.back()
+              }
+            },
+          ]
+        },
+        {
+          title: "蓝牙 mesh",
+          data: [
+            {
+              title: "Test 方法",
+              onPress: () => {
+                alert("Hello, world.")
+              },
+            }
+          ]
+        }
+      ]}
+      keyExtractor={(item, index) => item + index}
+    />
+  )
 
   return (
-    <>
+    <View style={{ flex: 1, flexDirection: "column" }}>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {Buttons}
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
+        {list}
       </SafeAreaView>
-    </>
+    </View>
   );
 };
 
