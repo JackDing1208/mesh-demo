@@ -31,8 +31,8 @@ import ApplicationManager from "./app/applicationManager";
 const applicationManager = new ApplicationManager()
 global.applicationManager = applicationManager
 
-const BLEMeshModule = NativeModules.BLEMeshModule
-global.BLEMeshModule = NativeModules.BLEMeshModule
+const BLEMeshModule = NativeModules.BLEMesh
+global.BLEMeshModule = NativeModules.BLEMesh
 
 const Button = (props) => {
 
@@ -108,9 +108,15 @@ const App: () => React$Node = (props) => {
           title: "蓝牙 mesh",
           data: [
             {
-              title: "Test 方法",
+              title: "setup()",
               onPress: () => {
-                alert("Hello, world.")
+                BLEMeshModule.setup()
+              },
+            },
+            {
+              title: "getAllNetworkKeys()",
+              onPress: () => {
+                BLEMeshModule.getAllNetworkKeys()
               },
             }
           ]

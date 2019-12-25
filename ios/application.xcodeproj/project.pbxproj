@@ -20,6 +20,16 @@
 		2EADFF383D32BEAC98030D63 /* libPods-application.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FC567D8D1FBAD65715AB3F /* libPods-application.a */; };
 		4C45FDCA855246710855463E /* libPods-application-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F38758DA3AE53270A0011B7D /* libPods-application-tvOS.a */; };
 		726056678D394A83EF772C11 /* libPods-applicationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34786209E2292F015D6FCCB /* libPods-applicationTests.a */; };
+		8BA8BB5C23B3A43200A3BC50 /* MeshSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB5B23B3A43200A3BC50 /* MeshSDK.swift */; };
+		8BA8BB6623B3A4D100A3BC50 /* GenericState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB5E23B3A4D100A3BC50 /* GenericState.swift */; };
+		8BA8BB6723B3A4D100A3BC50 /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB5F23B3A4D100A3BC50 /* NetworkConnection.swift */; };
+		8BA8BB6823B3A4D100A3BC50 /* GenericOnOffServerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6023B3A4D100A3BC50 /* GenericOnOffServerDelegate.swift */; };
+		8BA8BB6923B3A4D100A3BC50 /* GenericLevelServerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6123B3A4D100A3BC50 /* GenericLevelServerDelegate.swift */; };
+		8BA8BB6A23B3A4D100A3BC50 /* GenericLevelClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6223B3A4D100A3BC50 /* GenericLevelClientDelegate.swift */; };
+		8BA8BB6B23B3A4D100A3BC50 /* GenericOnOffClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6323B3A4D100A3BC50 /* GenericOnOffClientDelegate.swift */; };
+		8BA8BB6C23B3A4D100A3BC50 /* AddressRanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6423B3A4D100A3BC50 /* AddressRanges.swift */; };
+		8BA8BB6D23B3A4D100A3BC50 /* RangeObject+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB6523B3A4D100A3BC50 /* RangeObject+String.swift */; };
+		8BA8BB9A23B3A5A100A3BC50 /* RCTBLEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8BB9923B3A5A100A3BC50 /* RCTBLEMesh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +67,18 @@
 		2D02E47B1E0B4A5D006451C7 /* application-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "application-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* application-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "application-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FC567D8D1FBAD65715AB3F /* libPods-application.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-application.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BA8BB5A23B3A43100A3BC50 /* application-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "application-Bridging-Header.h"; path = "application/application-Bridging-Header.h"; sourceTree = "<group>"; };
+		8BA8BB5B23B3A43200A3BC50 /* MeshSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSDK.swift; sourceTree = "<group>"; };
+		8BA8BB5E23B3A4D100A3BC50 /* GenericState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericState.swift; sourceTree = "<group>"; };
+		8BA8BB5F23B3A4D100A3BC50 /* NetworkConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnection.swift; sourceTree = "<group>"; };
+		8BA8BB6023B3A4D100A3BC50 /* GenericOnOffServerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericOnOffServerDelegate.swift; sourceTree = "<group>"; };
+		8BA8BB6123B3A4D100A3BC50 /* GenericLevelServerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericLevelServerDelegate.swift; sourceTree = "<group>"; };
+		8BA8BB6223B3A4D100A3BC50 /* GenericLevelClientDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericLevelClientDelegate.swift; sourceTree = "<group>"; };
+		8BA8BB6323B3A4D100A3BC50 /* GenericOnOffClientDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericOnOffClientDelegate.swift; sourceTree = "<group>"; };
+		8BA8BB6423B3A4D100A3BC50 /* AddressRanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRanges.swift; sourceTree = "<group>"; };
+		8BA8BB6523B3A4D100A3BC50 /* RangeObject+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RangeObject+String.swift"; sourceTree = "<group>"; };
+		8BA8BB9823B3A5A100A3BC50 /* RCTBLEMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTBLEMesh.h; sourceTree = "<group>"; };
+		8BA8BB9923B3A5A100A3BC50 /* RCTBLEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTBLEMesh.m; sourceTree = "<group>"; };
 		9010A8FA83A5925C9EAA9DDC /* libPods-application-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-application-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC6BBF0AE527B6FCF9DDEE5 /* Pods-application-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-application-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-application-tvOS/Pods-application-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BEDF322CFF19824222751FEC /* Pods-application-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-application-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-application-tvOSTests/Pods-application-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,7 +139,6 @@
 				180B0587F24E6655AAB6B735 /* Pods-applicationTests.debug.xcconfig */,
 				242C0ED926D6DE57277FF740 /* Pods-applicationTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +196,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8BA8BB5A23B3A43100A3BC50 /* application-Bridging-Header.h */,
+				8BA8BB5823B3A3FF00A3BC50 /* Modules */,
 				13B07FAE1A68108700A75B9A /* application */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* applicationTests */,
@@ -196,6 +219,40 @@
 				2D02E4901E0B4A5D006451C7 /* application-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8BA8BB5823B3A3FF00A3BC50 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				8BA8BB5923B3A40A00A3BC50 /* BLEMesh */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		8BA8BB5923B3A40A00A3BC50 /* BLEMesh */ = {
+			isa = PBXGroup;
+			children = (
+				8BA8BB9823B3A5A100A3BC50 /* RCTBLEMesh.h */,
+				8BA8BB9923B3A5A100A3BC50 /* RCTBLEMesh.m */,
+				8BA8BB5D23B3A47600A3BC50 /* Common */,
+				8BA8BB5B23B3A43200A3BC50 /* MeshSDK.swift */,
+			);
+			path = BLEMesh;
+			sourceTree = "<group>";
+		};
+		8BA8BB5D23B3A47600A3BC50 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8BA8BB6423B3A4D100A3BC50 /* AddressRanges.swift */,
+				8BA8BB6223B3A4D100A3BC50 /* GenericLevelClientDelegate.swift */,
+				8BA8BB6123B3A4D100A3BC50 /* GenericLevelServerDelegate.swift */,
+				8BA8BB6323B3A4D100A3BC50 /* GenericOnOffClientDelegate.swift */,
+				8BA8BB6023B3A4D100A3BC50 /* GenericOnOffServerDelegate.swift */,
+				8BA8BB5E23B3A4D100A3BC50 /* GenericState.swift */,
+				8BA8BB5F23B3A4D100A3BC50 /* NetworkConnection.swift */,
+				8BA8BB6523B3A4D100A3BC50 /* RangeObject+String.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +349,10 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = F49XPGKUF7;
+						LastSwiftMigration = 1030;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -308,6 +369,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -529,7 +591,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				8BA8BB5C23B3A43200A3BC50 /* MeshSDK.swift in Sources */,
+				8BA8BB6823B3A4D100A3BC50 /* GenericOnOffServerDelegate.swift in Sources */,
+				8BA8BB6723B3A4D100A3BC50 /* NetworkConnection.swift in Sources */,
+				8BA8BB6A23B3A4D100A3BC50 /* GenericLevelClientDelegate.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				8BA8BB9A23B3A5A100A3BC50 /* RCTBLEMesh.m in Sources */,
+				8BA8BB6D23B3A4D100A3BC50 /* RangeObject+String.swift in Sources */,
+				8BA8BB6C23B3A4D100A3BC50 /* AddressRanges.swift in Sources */,
+				8BA8BB6623B3A4D100A3BC50 /* GenericState.swift in Sources */,
+				8BA8BB6923B3A4D100A3BC50 /* GenericLevelServerDelegate.swift in Sources */,
+				8BA8BB6B23B3A4D100A3BC50 /* GenericOnOffClientDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 180B0587F24E6655AAB6B735 /* Pods-applicationTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -605,6 +678,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 242C0ED926D6DE57277FF740 /* Pods-applicationTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = applicationTests/Info.plist;
@@ -626,17 +700,23 @@
 			baseConfigurationReference = F237877ED0DF351BB30556F1 /* Pods-application.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = F49XPGKUF7;
 				INFOPLIST_FILE = application/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mxchip.application;
 				PRODUCT_NAME = application;
+				SWIFT_OBJC_BRIDGING_HEADER = "application/application-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -646,16 +726,21 @@
 			baseConfigurationReference = CB4BBB98AF01851185EE7F44 /* Pods-application.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F49XPGKUF7;
 				INFOPLIST_FILE = application/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mxchip.application;
 				PRODUCT_NAME = application;
+				SWIFT_OBJC_BRIDGING_HEADER = "application/application-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -816,7 +901,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -862,7 +947,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
