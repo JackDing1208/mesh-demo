@@ -32,6 +32,7 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.common.LifecycleState;
+import com.facebook.react.devsupport.DevSupportManagerImpl;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.modules.core.PermissionAwareActivity;
@@ -371,7 +372,7 @@ public class RCTActivity extends FragmentActivity implements DefaultHardwareBack
         HashMap<String, Object> loadOptions = getIntentExtraData();
         Boolean online = loadOptions.get("online") == null ? false : loadOptions.get("online") != null && Boolean.TRUE.equals(loadOptions.get("online"));
         String host = loadOptions.get("host") != null ? loadOptions.get("host").toString() : "localhost";
-        String port = loadOptions.get("port") != null ? loadOptions.get("port").toString() : "8081";
+        String port = loadOptions.get("port") != null ? loadOptions.get("port").toString() : "8080";
         String applicationName = loadOptions.get("applicationName") == null ? "" : loadOptions.get("applicationName").toString();
         Boolean thisIsTheFirstActivity = loadOptions.get("online") == null; // 当前 Activity 是否为最初的 Activity
         mApplicationName = applicationName;
