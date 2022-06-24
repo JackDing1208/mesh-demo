@@ -2898,15 +2898,15 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hermes-engine@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/hermes-engine/-/hermes-engine-0.11.0.tgz#bb224730d230a02a5af02c4e090d1f52d57dd3db"
+  integrity sha512-7aMUlZja2IyLYAcZ69NBnwJAR5ZOYlSllj0oMpx08a8HzxHOys0eKCzfphrf6D0vX1JGO1QQvVsQKe6TkYherw==
+
 hermes-engine@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npm.taobao.org/hermes-engine/download/hermes-engine-0.2.1.tgz#25c0f1ff852512a92cb5c5cc47cf967e1e722ea2"
   integrity sha1-JcDx/4UlEqkstcXMR8+Wfh5yLqI=
-
-hermes-engine@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npm.taobao.org/hermes-engine/download/hermes-engine-0.3.0.tgz#c03ded211102eef775045a5f55e286783db8ad48"
-  integrity sha1-wD3tIREC7vd1BFpfVeKGeD24rUg=
 
 hermesvm@^0.1.1:
   version "0.1.1"
